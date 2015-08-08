@@ -1,4 +1,4 @@
-
+// added comment
 public class Calc implements CalcIfc{
 	
         String m_name;
