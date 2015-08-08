@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 //import java.util.Iterator;
 
 public class AlexIOC implements IOCIfc {
+	
+	// my comment
 
     private Map<String, XMLREader.BeanDef> __map__ = new HashMap();
     private Map<String, Object> __objectMap__ = new HashMap();
