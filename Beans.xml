@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<root>
+    <beans>
+        <bean>
+                    
+            <foo>tasos</foo>
+        
+            <id>printer</id>
+            <class>Printer</class>
+            <siglenton>true</siglenton>
+            <constructor>HelloWorld</constructor>
+        </bean>
+        <bean>
+            <id>calc</id>
+            <class>Calc</class>
+            <siglenton>false</siglenton>
+            <foo>true</foo>
+            <constructor>oneHundered</constructor>
+        </bean>
+    </beans>
+
+
+</root>
