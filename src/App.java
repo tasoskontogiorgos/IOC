@@ -14,7 +14,7 @@ public class App {
 		config += "printer Printer" + "\n";
 		config += "calc Calc" + "\n";*/
 		
-		String filename = "Beans.xml";
+		String filename = "Beans.json";
 		
 		
 		IOCIfc ioc = new  TasosIOC(filename);

@@ -1,0 +1,19 @@
+{
+    "Beans" : 
+    [
+        {
+            "id" : "printer",
+            "class" : "Printer",
+            "lazy" : "false",
+            "siglenton" : "true",
+            "constructor" : "HelloWorld"
+        },
+        {
+            "id" : "calc",
+            "class" : "Calc",
+            "lazy" : "true",
+            "siglenton" : "flase",
+            "constructor" : "OneHundred"
+        }
+    ]
+}
