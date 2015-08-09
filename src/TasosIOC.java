@@ -15,16 +15,16 @@ import java.util.Map;
  */
 public class TasosIOC implements IOCIfc
 {
-    private final Map<String, JSONReader.BeanDef> m_defs = new HashMap();
+    private final Map<String, BeanDef> m_defs = new HashMap();
     private final Map<String, Object> m_objects = new HashMap();
     
     public TasosIOC( String beanXMLFileName ) throws Exception
     {
         JSONReader reader = new JSONReader();
 
-        List<JSONReader.BeanDef> beanDefs = reader.readFile( beanXMLFileName );
+        List< BeanDef> beanDefs = reader.readFile( beanXMLFileName );
         
-        for( JSONReader.BeanDef bd : beanDefs )
+        for(  BeanDef bd : beanDefs )
         {
             process( bd );
         }
@@ -35,7 +35,7 @@ public class TasosIOC implements IOCIfc
     @Override
     public Object get( String id )  throws Exception
     {
-        JSONReader.BeanDef bd = m_defs.get(  id );
+         BeanDef bd = m_defs.get(  id );
         if( bd == null )
         {
             throw new RuntimeException( "Uknkown bean " + id );
@@ -67,7 +67,7 @@ public class TasosIOC implements IOCIfc
         }
     }
     
-    private void process( JSONReader.BeanDef bd ) throws Exception
+    private void process(  BeanDef bd ) throws Exception
     {
         String id = bd.id;
         m_defs.put( id, bd );
@@ -79,7 +79,7 @@ public class TasosIOC implements IOCIfc
         
     }
     
-    private Object createObject( JSONReader.BeanDef bd ) throws Exception
+    private Object createObject(  BeanDef bd ) throws Exception
     {
         String className = bd.className;
         Class objClass = Class.forName(className);        

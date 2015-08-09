@@ -3,14 +3,14 @@
     [
         {
             "id" : "printer",
-            "class" : "Printer",
+            "className" : "Printer",
             "lazy" : "false",
             "siglenton" : "true",
             "constructor" : "HelloWorld"
         },
         {
             "id" : "calc",
-            "class" : "Calc",
+            "className" : "Calc",
             "lazy" : "true",
             "siglenton" : "flase",
             "constructor" : "OneHundred"

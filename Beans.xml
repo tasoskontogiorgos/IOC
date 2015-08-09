@@ -10,18 +10,15 @@ and open the template in the editor.
     <beans>
         <bean>
                     
-            <foo>tasos</foo>
-        
-            <id>printer</id>
-            <class>Printer</class>
+            <id>tasos</id>
+           <className>Printer</className>
             <siglenton>true</siglenton>
             <constructor>HelloWorld</constructor>
         </bean>
         <bean>
             <id>calc</id>
-            <class>Calc</class>
+            <className>Calc</className>
             <siglenton>false</siglenton>
-            <foo>true</foo>
             <constructor>oneHundered</constructor>
         </bean>
     </beans>

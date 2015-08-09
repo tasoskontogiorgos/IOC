@@ -15,26 +15,35 @@ import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
+import org.w3c.dom.Element;
 
 public class JSONReader {
     
-    public static class BeanDef
+   
+    static class PropReader implements BeanDef.ElementReader
     {
 
-        public String id;
-        public String className;
-        public boolean isSiglenton;
-        public boolean isLazy;
-        public String constructor;
+        private JSONObject m_element;
+
+        PropReader( JSONObject el )
+        {
+            m_element = el;
+        }
 
         @Override
-        public String toString()
+        public String getValue( String propertyName )
         {
-            return id + " " + className + " " + isSiglenton + " " + isLazy;
+            Object x =  m_element.get( propertyName);
+            if( x == null )
+            {
+                return null;
+            }
+            return x.toString();
         }
+
     }
     
-    public List< JSONReader.BeanDef > readFile( String filename ) throws Exception{
+    public List< BeanDef > readFile( String filename ) throws Exception{
         
         FileReader reader = new FileReader(filename);
         JSONParser jsonParser = new JSONParser();
@@ -42,33 +51,13 @@ public class JSONReader {
 
         List<JSONObject> beanDefs = (JSONArray) jsonObject.get("Beans");
         
-        List< JSONReader.BeanDef> l = new ArrayList();
+        List< BeanDef> l = new ArrayList();
         
         for (JSONObject currentBeanDef : beanDefs) {
 
-            JSONReader.BeanDef bean = new JSONReader.BeanDef();
+            BeanDef bean = new BeanDef();
             
-            try{
-                bean.id =(String) currentBeanDef.get("id");
-            }catch(Throwable x){
-                bean.id = null;
-            }try{    
-                bean.className =(String) currentBeanDef.get("class");
-            }catch(Throwable x){
-                bean.className = null;
-            }try{
-                bean.isSiglenton =(boolean) currentBeanDef.get("siglenton");
-            }catch(Throwable x){
-                bean.isSiglenton = false;
-            }try{
-                bean.isLazy =(boolean) currentBeanDef.get("lazy");
-            }catch(Throwable x){
-                bean.isLazy = false;
-            }try{
-                bean.constructor =(String) currentBeanDef.get("constructor");
-            }catch(Throwable x){
-                bean.constructor = null;
-            }
+             bean.readValues( new PropReader(currentBeanDef));
             
             l.add(bean);
         }

@@ -15,13 +15,13 @@ public class AlexIOC implements IOCIfc {
 	
 	// my comment
 
-    private Map<String, XMLREader.BeanDef> __map__ = new HashMap();
+    private Map<String, BeanDef> __map__ = new HashMap();
     private Map<String, Object> __objectMap__ = new HashMap();
 
     public AlexIOC(String filename) {
         XMLREader reader = new XMLREader();
 
-        List<XMLREader.BeanDef> config = reader.readFile(filename);
+        List<BeanDef> config = reader.readFile(filename);
 
         for (int i = 0; i < config.size(); i++) {
             this.__map__.put(config.get(i).id, config.get(i));
@@ -65,7 +65,7 @@ public class AlexIOC implements IOCIfc {
     
     
     private Object buildObject(String id, String className) {
-        Map<String, XMLREader.BeanDef> map = this.getMap();
+        Map<String,  BeanDef> map = this.getMap();
         try 
         {
             Class obClass = Class.forName(className);
@@ -125,8 +125,8 @@ public class AlexIOC implements IOCIfc {
     
 
     public Object get(String id) {
-        Map<String, XMLREader.BeanDef> map = this.getMap();
-        XMLREader.BeanDef def = map.get(id);
+        Map<String, BeanDef> map = this.getMap();
+        BeanDef def = map.get(id);
 
         
             if (map.get(id).isLazy == true) {

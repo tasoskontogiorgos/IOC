@@ -21,33 +21,35 @@ import org.w3c.dom.NodeList;
 public class XMLREader
 {
 
-    public static class BeanDef
-    {
-
-        public String id;
-        public String className;
-        public boolean isSiglenton;
-        public boolean isLazy;
-        public String constructor;
-
-        @Override
-        public String toString()
-        {
-            return id + " " + className + " " + isSiglenton + " " + isLazy;
-        }
-    }
-
-    private String getValue( String tag, Element element )
+     static String getValue( String tag, Element element )
     {
         try
         {
-        NodeList nodes = element.getElementsByTagName( tag ).item( 0 ).getChildNodes();
-        Node node = ( Node ) nodes.item( 0 );
-        return node.getNodeValue();
-        } catch( Throwable x )
+            NodeList nodes = element.getElementsByTagName( tag ).item( 0 ).getChildNodes();
+            Node node = ( Node ) nodes.item( 0 );
+            return node.getNodeValue();
+        }catch( Throwable x )
         {
             return null;
         }
+    }
+
+    static class PropReader implements BeanDef.ElementReader
+    {
+
+        private Element m_element;
+
+        PropReader( Element el )
+        {
+            m_element = el;
+        }
+
+        @Override
+        public String getValue( String propertyName )
+        {
+            return XMLREader.getValue( propertyName, m_element );
+        }
+
     }
 
     public List< BeanDef> readFile( String filename )
@@ -74,12 +76,7 @@ public class XMLREader
                     Element element = ( Element ) node;
 
                     BeanDef bd = new BeanDef();
-                    bd.id = getValue( "id", element );
-                    bd.className = getValue( "class", element );
-                    bd.isSiglenton = getValue( "siglenton", element ).equals( "true" );
-                    bd.isLazy = getValue( "foo", element ).equals( "true" );
-                    bd.constructor = getValue("constructor", element);
-
+                    bd.readValues( new PropReader( element ));
                     l.add( bd );
                 }
             }
@@ -90,13 +87,12 @@ public class XMLREader
 
         return l;
     }
-    
-    
-    public static void main( String ... args ) throws Exception
+
+    public static void main( String... args ) throws Exception
     {
         XMLREader r = new XMLREader();
-        
-        for ( BeanDef bd : r.readFile( "Beans.xml"))
+
+        for( BeanDef bd : r.readFile( "Beans.xml" ) )
         {
             System.out.println( bd );
         }
